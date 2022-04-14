@@ -36,10 +36,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\DashAbility.cs" />
+     <Compile Include="Assets\Scripts\Climbable.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovementController.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\PlayFaceAnimations.cs" />
+     <Compile Include="Assets\Scripts\Ability.cs" />
+     <Compile Include="Assets\Scripts\RewindTime.cs" />
+     <Compile Include="Assets\Scripts\KairosMovementController.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\FaceAnimations.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\Character_Animations.cs" />
+     <Compile Include="Assets\Scripts\PlayerCameraController.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\ChangeFaces.cs" />
+     <Compile Include="Assets\Scripts\Wallrun.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.25f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

@@ -9,10 +9,16 @@ namespace CreatingCharacters.Player{
     public class PlayerMovementController : MonoBehaviour
     {
       
-        [SerializeField] protected float movementSpeed = 5f;
-        [SerializeField] protected float jumpForce = 4f;
-        [SerializeField] protected float mass = 1f;
+        [SerializeField] protected float movementSpeed = 20f;
+        [SerializeField] protected float jumpForce = 25f;
+        [SerializeField] protected float mass = 2f;
         [SerializeField] protected float damping = 5f;
+
+        [SerializeField] protected float edgeUpforce = 0.1f;
+        [SerializeField] protected float wallRaycatsDistance;
+        [SerializeField] protected float climbSpeed;
+        private int jumpCount = 0;
+        private bool isWallrunning = false;
 
 
         protected CharacterController characterController;
@@ -28,8 +34,15 @@ namespace CreatingCharacters.Player{
 
         protected virtual void Update()
         {
-                Move();
-                Jump();
+            
+            if(characterController.isGrounded)
+            {
+                jumpCount = 0;
+            }
+            Move();
+            Jump();
+            CheckForWall();
+            
             
         }
         protected virtual void Move(){
@@ -54,15 +67,25 @@ namespace CreatingCharacters.Player{
 
             currentImpact = Vector3.Lerp(currentImpact, Vector3.zero, damping * Time.deltaTime);
         }
+
         protected virtual void Jump(){
-           if(Input.GetKeyDown(KeyCode.Space))
+           if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
            {
-               if(characterController.isGrounded)
-               {
-                   AddForce(Vector3.up, jumpForce);
-               }
+                AddForce(Vector3.up, jumpForce);
+                jumpCount =jumpCount +1;
+           }
+           else if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)
+           {
+                AddForce(Vector3.up, jumpForce);
+                jumpCount =jumpCount +1;
+           }
+           else{
+               
+               Debug.Log("Has alcanzado todos los saltos");
            }
         }
+
+        
         
         public void AddForce(Vector3 direction, float magnitude){
 
@@ -81,6 +104,54 @@ namespace CreatingCharacters.Player{
         {
             currentImpact.y = 0f;
             velocityY = 0f;
+        }
+
+         private void CheckForWall()
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.right, out hit, wallRaycatsDistance))
+            {
+                StartCoroutine(WallrunRight(hit.collider));
+            }
+            else if(Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
+            {
+                StartCoroutine(WallrunLeft(hit.collider));
+            }
+        }
+
+        
+
+        private IEnumerator WallrunLeft(Collider wallrunColl)
+        {
+            isWallrunning = true;
+            RaycastHit hit;
+            while(Input.GetKey(KeyCode.W) && Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
+            {
+                characterController.Move(new Vector3(climbSpeed * Time.deltaTime, 0.1f * Time.deltaTime, 0f));
+                yield return null;
+            }
+            ResetImpactY();
+
+            AddForce(Vector3.left, edgeUpforce);
+            isWallrunning = false;
+        }
+        private IEnumerator WallrunRight(Collider wallrunColl)
+        {
+            isWallrunning = true;
+            RaycastHit hit;
+            while(Input.GetKey(KeyCode.W))
+            {
+               if(Physics.Raycast(transform.position, transform.right, out hit, wallRaycatsDistance)){
+                    characterController.Move(new Vector3(climbSpeed * Time.deltaTime, 0.1f * Time.deltaTime, 0f));
+                    yield return null;
+               }
+               if(Input.GetKeyDown(KeyCode.Space)){
+                   AddForce(Vector3.right, edgeUpforce);
+               }
+               
+            }
+            ResetImpactY();
+            isWallrunning = false;
         }
 
         

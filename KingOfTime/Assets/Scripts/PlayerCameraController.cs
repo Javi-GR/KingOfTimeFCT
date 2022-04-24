@@ -24,7 +24,6 @@ namespace CreatingCharacters.Player
         public void Lock(bool shouldLock)
         {
             isLocked = shouldLock;
-            Camera.main.fieldOfView = 100f;
 
             if(!shouldLock)
             {

@@ -11,7 +11,7 @@ namespace CreatingCharacters.Abilities
         [SerializeField] protected float wallRaycatsDistance;
         [SerializeField] protected float climbSpeed;
         private int jumpCount = 0;
-        private bool isClimbing = false;
+        private bool isWallrunning = false;
         // Start is called before the first frame update
         void Start()
         {
@@ -21,7 +21,7 @@ namespace CreatingCharacters.Abilities
         // Update is called once per frame
         protected override void Update()
         {
-            if(!isClimbing)
+            if(!isWallrunning)
             {  
                 base.Update();
             }
@@ -29,31 +29,19 @@ namespace CreatingCharacters.Abilities
             {
                 jumpCount=0;
             }
+            
         }
 
         protected override void Jump()
         {
             if(Input.GetKeyDown(KeyCode.Space)){
-                RaycastHit hit;
-                if(Physics.Raycast(transform.position, transform.forward, out hit, wallRaycatsDistance))
-                {
-                    if(hit.collider.GetComponent<Climbable>() != null)
-                    {
-                        StartCoroutine(Climb(hit.collider));
-                        return;
-                    }
-                }
                 if(jumpCount == 0)
                 {
-                        ResetImpactY();
-                        AddForce(Vector3.up, jumpForce);
-
                     if(characterController.isGrounded)
                     {
+                        ResetImpactY();
+                        AddForce(Vector3.up, jumpForce);
                         jumpCount = 1;
-                    }
-                    else{
-                        jumpCount = 2;
                     }
                 }
                 else if(jumpCount == 1)
@@ -62,37 +50,54 @@ namespace CreatingCharacters.Abilities
                     AddForce(Vector3.up, jumpForce);
                     jumpCount = 2;
                 }
-                
+                CheckForWall();
+            }
+            
+        }
+
+        private void CheckForWall()
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.right, out hit, wallRaycatsDistance))
+            {
+                StartCoroutine(WallrunRight(hit.collider));
+            }
+            if(Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
+            {
+                StartCoroutine(WallrunLeft(hit.collider));
             }
         }
 
-        private IEnumerator Climb(Collider climbableCollider)
+        
+
+        private IEnumerator WallrunLeft(Collider wallrunColl)
         {
-            isClimbing = true;
-            while(Input.GetKey(KeyCode.Space))
+            isWallrunning = true;
+            RaycastHit hit;
+            while(Input.GetKey(KeyCode.W) && Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
             {
-                RaycastHit hit;
-                if(Physics.Raycast(transform.position, transform.right, out hit, wallRaycatsDistance))
-                {
-                    if(hit.collider == climbableCollider)
-                    {
-                        characterController.Move(new Vector3(0f, climbSpeed * Time.deltaTime, 0f));
-                        yield return null;
-                    }
-                }
-                if(Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
-                {
-                    if(hit.collider == climbableCollider)
-                    {
-                        characterController.Move(new Vector3(climbSpeed * Time.deltaTime, 0f, 0f));
-                        yield return null;
-                    }
-                }
+                characterController.Move(new Vector3(climbSpeed * Time.deltaTime, 0.5f * Time.deltaTime, 0f));
+                yield return null;
             }
             ResetImpactY();
 
             AddForce(Vector3.up, edgeUpforce);
-            isClimbing = false;
+            isWallrunning = false;
+        }
+        private IEnumerator WallrunRight(Collider wallrunColl)
+        {
+            isWallrunning = true;
+            RaycastHit hit;
+            while(Input.GetKey(KeyCode.W) && Physics.Raycast(transform.position, -transform.right, out hit, wallRaycatsDistance))
+            {
+                AddForce(Vector3.up, edgeUpforce);
+                characterController.Move(new Vector3(climbSpeed * Time.deltaTime, 0.5f * Time.deltaTime, 0f));
+                yield return null;
+            }
+            ResetImpactY();
+
+            AddForce(Vector3.up, edgeUpforce);
+            isWallrunning = false;
         }
     }   
 }

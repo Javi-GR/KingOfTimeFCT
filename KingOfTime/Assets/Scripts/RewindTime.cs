@@ -3,8 +3,7 @@ using CreatingCharacters.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CreatingCharacters.Abilities
-{
+
     public class RewindTime : MonoBehaviour
     {
         //The higher maxRecallData is, the smoother the rewind is (2 is straight line, 100 is a line of 100 points making the rewind smoother)
@@ -14,7 +13,7 @@ namespace CreatingCharacters.Abilities
         // recallDuration represents the seconds back in time that the character goes
         [SerializeField] private float recallDuration = 1.25f;
 
-        private PlayerCameraController playerCameraController;  // PlayerCameraController
+        private MoveCamera playerCameraController;  // PlayerCameraController
         private bool canCollectRecallData = true;
         private float currentDataTimer = 0f;
 
@@ -30,7 +29,7 @@ namespace CreatingCharacters.Abilities
 
         private void Start()
         {
-            playerCameraController = GetComponentInChildren<PlayerCameraController>(); //playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); 
+           playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); // playerCameraController = GetComponentInChildren<PlayerCameraController>(); 
         }
 
         private void Update()
@@ -134,4 +133,4 @@ namespace CreatingCharacters.Abilities
         }
     } 
 
-}
+

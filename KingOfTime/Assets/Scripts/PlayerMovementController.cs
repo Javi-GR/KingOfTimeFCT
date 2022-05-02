@@ -41,7 +41,7 @@ namespace CreatingCharacters.Player{
             }
             Move();
             Jump();
-            CheckForWall();
+            //CheckForWall();
             
             
         }
@@ -106,7 +106,7 @@ namespace CreatingCharacters.Player{
             velocityY = 0f;
         }
 
-         private void CheckForWall()
+        /* private void CheckForWall()
         {
             RaycastHit hit;
             if(Physics.Raycast(transform.position, transform.right, out hit, wallRaycatsDistance))
@@ -153,7 +153,7 @@ namespace CreatingCharacters.Player{
             ResetImpactY();
             isWallrunning = false;
         }
-
+*/
         
     }
 }

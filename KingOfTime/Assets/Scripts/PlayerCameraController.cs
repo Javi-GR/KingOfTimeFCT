@@ -28,7 +28,6 @@ namespace CreatingCharacters.Player
             if(!shouldLock)
             {
                 currentLookingDirection = new Vector2(playerTransform.eulerAngles.y, -transform.eulerAngles.x);
-                Camera.main.fieldOfView = 60f;
             }
         }
         

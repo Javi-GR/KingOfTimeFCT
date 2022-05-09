@@ -12,7 +12,7 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse1))
         {
             if(heldObj == null)
             {
@@ -28,7 +28,7 @@ public class PickUp : MonoBehaviour
             }
             
         }
-        if(heldObj!=null && Input.GetKeyDown(KeyCode.Mouse1))
+        if(heldObj!=null && Input.GetKeyDown(KeyCode.Mouse0))
         {
             LaunchObject();
         }

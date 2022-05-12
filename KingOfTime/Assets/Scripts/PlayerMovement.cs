@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
-    /// Find user input. Should put this in its own class but im lazy
+    /// Find user input. 
    
     private void MyInput()
     {
@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if ((grounded || isWallRunning || surfing) && readyToJump)
+        if ((grounded || isWallRunning ) && readyToJump) // || surfing
         {
             MonoBehaviour.print("jumping");
             Vector3 velocity = rb.velocity;

@@ -28,10 +28,6 @@ public class PickUp : MonoBehaviour
             }
             
         }
-        if(heldObj!=null && Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            LaunchObject();
-        }
         if(heldObj!=null)
         {
             MoveObject();
@@ -45,12 +41,7 @@ public class PickUp : MonoBehaviour
             heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
         }
     }
-    void LaunchObject()
-    {
-       Vector3 moveDirection = (holdParent.position + Vector3.forward);
-       heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce); 
-       DropObject();
-    }
+    
     void PickupObject(GameObject pickObj)
     {
         if(pickObj.GetComponent<Rigidbody>())

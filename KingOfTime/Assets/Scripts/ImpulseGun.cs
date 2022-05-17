@@ -28,7 +28,7 @@ public class ImpulseGun : MonoBehaviour
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfo, range))
         {
             Debug.Log(hitInfo.transform.name);
-            Enemy target =  hitInfo.transform.GetComponent<Enemy>();
+            SentinelEnemy target =  hitInfo.transform.GetComponent<SentinelEnemy>();
             if(target != null)
             {
                 target.TakeDamage(damage);

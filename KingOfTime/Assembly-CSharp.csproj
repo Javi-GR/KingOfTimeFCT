@@ -38,6 +38,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\DashAbility.cs" />
+     <Compile Include="Assets\Scripts\DialogueTrigger.cs" />
+     <Compile Include="Assets\Scripts\SentinelEnemy.cs" />
      <Compile Include="Assets\Scripts\Climbable.cs" />
      <Compile Include="Assets\Scripts\PickUp.cs" />
      <Compile Include="Assets\Scripts\PlayerMovementController.cs" />
@@ -48,12 +50,17 @@
      <Compile Include="Assets\Scripts\KairosMovementController.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\FaceAnimations.cs" />
+     <Compile Include="Assets\Scripts\Dialogue.cs" />
+     <Compile Include="Assets\Clock\Scripts\Clock.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\Character_Animations.cs" />
      <Compile Include="Assets\Scripts\PlayerCameraController.cs" />
+     <Compile Include="Assets\Scripts\TutorialDialogue.cs" />
      <Compile Include="Assets\Scripts\MoveCamera.cs" />
      <Compile Include="Assets\Scripts\TimeManager.cs" />
      <Compile Include="Assets\Medieval_Toon_Character\Source\Scripts\ChangeFaces.cs" />
-     <Compile Include="Assets\Scripts\SentinelEnemy.cs" />
+     <Compile Include="Assets\Scripts\SpellCooldown.cs" />
+     <Compile Include="Assets\MinimapScript.cs" />
+     <Compile Include="Assets\KeyLeft.cs" />
      <None Include="Assets\SkySeries Freebie\Hdri setup.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.25f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

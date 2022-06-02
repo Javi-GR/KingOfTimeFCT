@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     private bool cancellingWall;
     private bool onWall;
     private bool cancelling;
-    public TimeManager timeManager;
 
     public static PlayerMovement Instance { get; private set; }
 
@@ -111,8 +110,7 @@ public class PlayerMovement : MonoBehaviour
             StartCrouch();
         if (Input.GetKeyUp(KeyCode.LeftControl))
             StopCrouch();
-        if(Input.GetKeyDown(KeyCode.Q))
-            timeManager.DoSlowMotion();
+            
     }
 
     private void StartCrouch()
@@ -183,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
-    private void Jump()
+    public void Jump()
     {
         if ((grounded || isWallRunning ) && readyToJump) // || surfing
         {

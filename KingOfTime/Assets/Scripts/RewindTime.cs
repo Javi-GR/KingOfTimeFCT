@@ -7,15 +7,16 @@ using UnityEngine;
     public class RewindTime : MonoBehaviour
     {
         //The higher maxRecallData is, the smoother the rewind is (2 is straight line, 100 is a line of 100 points making the rewind smoother)
-        [SerializeField] private int maxRecallData = 6;
+        [SerializeField] private int maxRecallData = 10;
         //This maxRecallData / secondsBetweenData
         [SerializeField] private float secondsBetweenData = 0.5f;
         // recallDuration represents the seconds back in time that the character goes
         [SerializeField] private float recallDuration = 1.25f;
 
         private MoveCamera playerCameraController;  // PlayerCameraController
-        private bool canCollectRecallData = true;
+        public bool canCollectRecallData = true;
         private float currentDataTimer = 0f;
+        TimeManager tm;
 
         [System.Serializable]
         private class RecallData
@@ -29,8 +30,10 @@ using UnityEngine;
 
         private void Start()
         {
+            tm = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
            playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); // playerCameraController = GetComponentInChildren<PlayerCameraController>(); 
         }
+
 
         private void Update()
         {
@@ -42,16 +45,9 @@ using UnityEngine;
                 Debug.DrawLine(recallData[i].characterPosition, recallData[i+1].characterPosition);
             }
 
-            RecallInput();
         }
 
-        private void RecallInput()
-        {
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-               StartCoroutine(Recall());
-            }
-        }
+       
         private void StoreRecallData()
         {
             currentDataTimer +=Time.deltaTime;
@@ -81,7 +77,7 @@ using UnityEngine;
             };
         }
     
-        private IEnumerator Recall()
+        public IEnumerator Recall()
         {
             playerCameraController.Lock(true);
 
@@ -123,10 +119,11 @@ using UnityEngine;
                 currentDataCamStartRot = recallData[recallData.Count -1].cameraRotation;
                 currentDataCamStartPos = recallData[recallData.Count -1].characterPosition;
 
+                
 
                 recallData.RemoveAt(recallData.Count -1);
             }
-
+            tm.TimeImpulse();
             playerCameraController.Lock(false);
 
             canCollectRecallData = true;

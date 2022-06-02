@@ -44,7 +44,7 @@ public class PickUp : MonoBehaviour
     
     void PickupObject(GameObject pickObj)
     {
-        if(pickObj.GetComponent<Rigidbody>())
+        if(pickObj.GetComponent<Rigidbody>() && pickObj.tag != "Player" && pickObj.tag != "Enemy")
         {
             Rigidbody objRig = pickObj.GetComponent<Rigidbody>();
             objRig.useGravity = false;
@@ -52,6 +52,10 @@ public class PickUp : MonoBehaviour
 
             objRig.transform.parent = holdParent;
             heldObj = pickObj;
+        }
+        if(pickObj.GetComponent<Rigidbody>() && pickObj.tag == "Key")
+        {
+            //Show tutorial text of what player should do with key
         }
 
     }

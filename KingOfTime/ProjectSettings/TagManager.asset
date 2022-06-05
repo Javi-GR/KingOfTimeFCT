@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tutorial
   - TimeManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

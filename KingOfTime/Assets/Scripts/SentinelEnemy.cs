@@ -11,7 +11,7 @@ public class SentinelEnemy : MonoBehaviour
 
     public float health = 10f;
 
-
+    public Blip blip;
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -56,7 +56,7 @@ public class SentinelEnemy : MonoBehaviour
             
             GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 25f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
             StartCoroutine(destroyBullet(bullet));
 
             alreadyAttacked = true;
@@ -75,10 +75,11 @@ public class SentinelEnemy : MonoBehaviour
         health -= damage;
         if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
-    //Function that destroys the enemy object and adds a kill to the statcount
+    //Function that destroys the enemy object 
     private void DestroyEnemy()
     {
         Destroy(gameObject);
+        blip.DestroyedEnemy();
     }
     //Funciton to see the attack range and sight range in gizmos
     private void OnDrawGizmosSelected()

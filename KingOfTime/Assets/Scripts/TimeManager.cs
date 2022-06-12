@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public float slowdownFactor = 0.05f;
-    public float slowdownLength = 2f;
+    public float slowdownFactor = 0.03f;
+    public float slowdownLength = 3.5f;
     public bool slowed = false;
     public bool stopped = false;
     public bool inConversation= false;
     private Vector3 normalVector = Vector3.up;
 
     Rigidbody rb;
+    PlayerMovement pm;
 
     void Start()
     {
         rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
     private void Update()
     {
@@ -32,7 +34,13 @@ public class TimeManager : MonoBehaviour
             if(Time.timeScale == 1f && Time.fixedDeltaTime == 0.02f && !inConversation)
             {
                 slowed = false;
-                TimeImpulse();
+                if(pm.grounded)
+                {
+                    return;
+                }else{
+                    TimeImpulse();
+                }
+                
             }
             if(Time.timeScale == 1f && Time.fixedDeltaTime == 0.02f && inConversation)
             {

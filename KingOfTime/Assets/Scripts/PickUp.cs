@@ -28,10 +28,11 @@ public class PickUp : MonoBehaviour
             }
             
         }
-        if(heldObj!=null)
+        if(heldObj!=null && heldObj.GetComponent<Rigidbody>() != null) 
         {
             MoveObject();
         }
+        
     }
 
     void MoveObject()
@@ -59,7 +60,7 @@ public class PickUp : MonoBehaviour
         }
 
     }
-    void DropObject()
+    public void DropObject()
     {
         Rigidbody heldRig = heldObj.GetComponent<Rigidbody>();
         heldRig.useGravity = true;

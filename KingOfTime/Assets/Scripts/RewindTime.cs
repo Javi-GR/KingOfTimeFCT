@@ -12,11 +12,13 @@ using UnityEngine;
         [SerializeField] private float secondsBetweenData = 0.5f;
         // recallDuration represents the seconds back in time that the character goes
         [SerializeField] private float recallDuration = 1.25f;
+        [SerializeField]private Clock clock;
 
         private MoveCamera playerCameraController;  // PlayerCameraController
         public bool canCollectRecallData = true;
         private float currentDataTimer = 0f;
         TimeManager tm;
+        PlayerMovement pm;
 
         [System.Serializable]
         private class RecallData
@@ -31,7 +33,8 @@ using UnityEngine;
         private void Start()
         {
             tm = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
-           playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); // playerCameraController = GetComponentInChildren<PlayerCameraController>(); 
+            pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+            playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); // playerCameraController = GetComponentInChildren<PlayerCameraController>(); 
         }
 
 
@@ -93,6 +96,7 @@ using UnityEngine;
 
             while(recallData.Count > 0)
             {
+                clock.reverseTime = true;
                 float t = 0f;
 
                 while( t < secondsForEachData ){
@@ -123,10 +127,19 @@ using UnityEngine;
 
                 recallData.RemoveAt(recallData.Count -1);
             }
-            tm.TimeImpulse();
+            clock.reverseTime = false;
+            
             playerCameraController.Lock(false);
 
             canCollectRecallData = true;
+            if(pm.grounded)
+            {
+                yield break;
+            }
+            else{
+                tm.TimeImpulse();
+            }
+            
         }
     } 
 

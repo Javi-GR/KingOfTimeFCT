@@ -7,6 +7,10 @@ TagManager:
   - Tutorial
   - TimeManager
   - Enemy
+  - Blue
+  - Green
+  - Red
+  - FloatingIsland
   layers:
   - Default
   - TransparentFX

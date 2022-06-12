@@ -9,24 +9,57 @@ public class LevelManager : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1.45f;
     public Transform player;
+    GameObject floatingIsland;
     private bool dead = false;
     public int nKeys = 0;
     public Text fadeText;
+    private Vector3 startPosition;
+    private Vector3 point;
+    private float lerpTimeLM = 4;
+    private float currentLerpTimeLM = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if(player.position.y < -120){
+        if(player.position.y < -190 && !dead){
             dead = true;
+            SoundManager.PlaySound("death");
             LoadSameLevel(dead);
         }
+        if(nKeys == 3 && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            if(floatingIsland.transform.position == startPosition)
+            {
+               SoundManager.PlaySound("movingisland");
+            }
+            player.transform.parent = floatingIsland.transform;
+            LoadNextLevel();
+            currentLerpTimeLM += Time.deltaTime;
+            if(currentLerpTimeLM >= lerpTimeLM)
+            {
+                currentLerpTimeLM = lerpTimeLM;
+            }
+            float percentage = currentLerpTimeLM/lerpTimeLM;
+            floatingIsland.transform.position = Vector3.Lerp(startPosition, point, percentage);
+            
+        }
+    }
+    
+    void Start()
+    {
+        floatingIsland = GameObject.FindGameObjectWithTag("FloatingIsland");
+        if(floatingIsland != null)
+        {
+            point = floatingIsland.transform.position + Vector3.up * 500f;
+            startPosition = floatingIsland.transform.position;
+        }
+        
     }
     void FixedUpdate()
     {
-        if(nKeys == 3)
+        if(dead && Input.GetKeyDown(KeyCode.F))
         {
-            LoadNextLevel();
-            Debug.Log("You finished the level!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
     public void LoadSameLevel(bool died)
@@ -34,7 +67,7 @@ public class LevelManager : MonoBehaviour
         if(died)
         {
             //Change Text of fade
-            fadeText.text = "Try Again";
+            fadeText.text = "Press F to pay respect [f]";
             StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
         }else{
             fadeText.text = "";
@@ -44,12 +77,25 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadNextLevel()
     {
+
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
+   private IEnumerator EndingLevel()
+   {
+       LoadNextLevel();
+       yield return new WaitForSeconds(1f);
+   }
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(levelIndex);
+        if(dead){
+            yield return new WaitForFixedUpdate();
+        }else{
+            yield return new WaitForSeconds(3f);
+            SceneManager.LoadScene(levelIndex);
+        }
+        
+        
     }
+    
 }

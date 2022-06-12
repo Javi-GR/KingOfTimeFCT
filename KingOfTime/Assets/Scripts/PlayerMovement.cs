@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((grounded || isWallRunning ) && readyToJump) // || surfing
         {
-            MonoBehaviour.print("jumping");
+            SoundManager.PlaySound("jump");
             Vector3 velocity = rb.velocity;
             readyToJump = false;
             rb.AddForce(Vector2.up * jumpForce * 1.5f);
@@ -284,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
 
         return new Vector2(xMag, yMag);
     }
-    //a lot of math (dont touch)
+    
     private void FindWallRunRotation()
     {
 
@@ -360,6 +360,20 @@ public class PlayerMovement : MonoBehaviour
     {
         return v.y == -1f;
     }
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(this);
+    }
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        transform.position = position;
+
+    }
 
     /// <summary>
     /// Handle ground detection
@@ -385,7 +399,7 @@ public class PlayerMovement : MonoBehaviour
                 cancellingGrounded = false;
                 CancelInvoke("StopGrounded");
             }
-            if (IsWall(normal) && (layer == (int)whatIsGround || (int)whatIsGround == -1 || layer == LayerMask.NameToLayer("Ground") || layer == LayerMask.NameToLayer("ground"))) //seriously what is this
+            if (IsWall(normal) && (layer == (int)whatIsGround || (int)whatIsGround == -1 || layer == LayerMask.NameToLayer("Ground") || layer == LayerMask.NameToLayer("ground"))) 
             {
                 StartWallRun(normal);
                 onWall = true;
@@ -446,6 +460,7 @@ public class PlayerMovement : MonoBehaviour
     private void StartWallRun(Vector3 normal)
     {
         MonoBehaviour.print("wallrunning");
+        
         //cancels all y momentum and then applies an upwards force.
         if (!grounded && useWallrunning)
         {

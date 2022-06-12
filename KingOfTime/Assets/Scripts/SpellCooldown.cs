@@ -38,10 +38,12 @@ public class SpellCooldown : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Q) && rewindTime.canCollectRecallData == true)
         {
+            
             UseSpellStopTime();
         }
         if(Input.GetKeyDown(KeyCode.E) && timeManager.slowed == false)
         {
+            
             UseSpellRewind();
         }
         if(isCooldownStopTime)
@@ -95,6 +97,7 @@ public class SpellCooldown : MonoBehaviour
         }
         else
         {
+            SoundManager.PlaySound("rewindtime");
             isCooldownRewind = true;
             textCooldownR.gameObject.SetActive(true);
             cooldownTimerR = cooldownTimeR;
@@ -109,6 +112,7 @@ public class SpellCooldown : MonoBehaviour
         }
         else
         {
+            SoundManager.PlaySound("slowdowntime");
             isCooldownStopTime = true;
             textCooldownS.gameObject.SetActive(true);
             cooldownTimerS = cooldownTimeS;

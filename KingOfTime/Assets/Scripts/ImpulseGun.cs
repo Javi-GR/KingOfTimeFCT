@@ -6,7 +6,7 @@ public class ImpulseGun : MonoBehaviour
 {
     public GameObject explosion;
     public Camera cam;
-    public float impactForce = 30f;
+    public float impactForce = 60f;
     public float range = 100f;
     public float damage = 10f;
     public ParticleSystem gunEffect;
@@ -29,9 +29,14 @@ public class ImpulseGun : MonoBehaviour
         {
             Debug.Log(hitInfo.transform.name);
             SentinelEnemy target =  hitInfo.transform.GetComponent<SentinelEnemy>();
+            Enemy targetEnemy =  hitInfo.transform.GetComponent<Enemy>();
             if(target != null)
             {
                 target.TakeDamage(damage);
+            }
+             if(targetEnemy != null)
+            {
+                targetEnemy.TakeDamage(damage);
             }
             if(hitInfo.rigidbody != null)
             {

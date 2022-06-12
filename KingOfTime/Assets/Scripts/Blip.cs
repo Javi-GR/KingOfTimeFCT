@@ -28,6 +28,9 @@ public class Blip : MonoBehaviour
     }
     public void DestroyedEnemy()
     {
-        Destroy(gameObject);
+        if(this.gameObject != null){
+            Destroy(gameObject);
+        }
+       
     }
 }

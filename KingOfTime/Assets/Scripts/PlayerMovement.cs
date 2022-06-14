@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private bool cancellingWall;
     private bool onWall;
     private bool cancelling;
+    public PauseMenuScript pauseMenu;
 
     public static PlayerMovement Instance { get; private set; }
 
@@ -76,8 +77,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        MyInput();
-        Look();
+        if(pauseMenu.GameIsPaused)
+        {
+            return;
+        }
+        else{
+            MyInput();
+            Look();
+        }
+       
     }
 
     private void LateUpdate()

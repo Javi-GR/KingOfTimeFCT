@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip rewindTime, slowdownTime, jump, fire, death, keyLeft, floatingIsland, explosion, hurt;
-    static AudioSource audioSrc;
+    public static AudioClip rewindTime, burn, laserHit, slowdownTime, steam,  
+    jump, shot, death, deathbyrobot, robotDeath, hitmarker, keyLeft,pickedUpKey, floatingIsland, explosion, hurt;
+    public static AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
     {
         rewindTime = Resources.Load<AudioClip>("rewindtime");
         slowdownTime = Resources.Load<AudioClip>("slowdowntime");
         jump = Resources.Load<AudioClip>("jump");
-        /*
-        fire = Resources.Load<AudioClip>("");
-       
-        keyLeft = Resources.Load<AudioClip>("");*/
+        shot = Resources.Load<AudioClip>("shot");
+        burn = Resources.Load<AudioClip>("burn");
+        robotDeath = Resources.Load<AudioClip>("robotdeath");
+        steam = Resources.Load<AudioClip>("steam");
+        laserHit = Resources.Load<AudioClip>("laserhit");
+        deathbyrobot = Resources.Load<AudioClip>("deathbyrobot");
+        hitmarker = Resources.Load<AudioClip>("hitmarker"); 
+        keyLeft = Resources.Load<AudioClip>("keyleft");
+        pickedUpKey = Resources.Load<AudioClip>("keypickedup");
         explosion = Resources.Load<AudioClip>("enemyexplosion");
         hurt = Resources.Load<AudioClip>("mangrunt");
         floatingIsland = Resources.Load<AudioClip>("movingisland");
@@ -24,11 +30,7 @@ public class SoundManager : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
     public static void PlaySound(string clip)
     {
         
@@ -55,7 +57,38 @@ public class SoundManager : MonoBehaviour
             case "enemyexplosion":
                 audioSrc.PlayOneShot(explosion);
                 break;
+            case "keypickedup":
+                audioSrc.PlayOneShot(pickedUpKey);
+                break;
+            case "keyleft":
+                audioSrc.PlayOneShot(keyLeft);
+                break;
+            case "hitmarker":
+                audioSrc.PlayOneShot(hitmarker);
+                break;
+            case "deathbyrobot":
+                audioSrc.PlayOneShot(deathbyrobot);
+                break;
+            case "shot":
+                audioSrc.PlayOneShot(shot);
+                break;
+            case "burn":
+                audioSrc.PlayOneShot(burn);
+                break;
+            case "laserhit":
+                audioSrc.PlayOneShot(laserHit);
+                break;
+            case "steam":
+                audioSrc.PlayOneShot(steam);
+                break;
+            case "robotdeath":
+                audioSrc.PlayOneShot(robotDeath);
+                break;
         }
             
+    }
+    public static void StopSound()
+    {
+        audioSrc.Stop();
     }
 }

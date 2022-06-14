@@ -52,6 +52,7 @@ public class HealthScript : MonoBehaviour
             startCooldown = true;
         }else{
             LevelManager lv = FindObjectOfType<LevelManager>();
+            SoundManager.PlaySound("deathbyrobot");
             lv.LoadSameLevel(true);
         }
     }

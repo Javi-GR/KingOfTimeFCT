@@ -6,13 +6,16 @@ public class BulletDamage : MonoBehaviour
 {
     [SerializeField]
     private float enemyDamage = 10f;
-    [SerializeField]
-    private GameObject explosiveParticle = null;
+    private GameObject fireParticle;
+    
+    private Vector3 firePosition;
     private HealthScript playerHealth;
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthScript>();
+        fireParticle = GameObject.FindGameObjectWithTag("Fire");
+
     }
 
     // Update is called once per frame
@@ -21,10 +24,24 @@ public class BulletDamage : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            explosiveParticle.SetActive(true);
             playerHealth.currentHealth -= enemyDamage;
             playerHealth.TakeDamage();
             gameObject.GetComponent<SphereCollider>().enabled = false;
+            Destroy(this.gameObject);
         }
+        if(other.CompareTag("EnemyGround"))
+        {
+            firePosition = this.transform.position;
+            StartCoroutine(SpreadFire());
+            
+            
+        }
+    }
+    IEnumerator SpreadFire()
+    {
+        yield return new WaitForSeconds(.3f);
+        Instantiate(fireParticle, firePosition, Quaternion.identity);
+        Destroy(this.gameObject);
+       
     }
 }

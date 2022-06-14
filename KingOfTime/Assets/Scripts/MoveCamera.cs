@@ -5,13 +5,15 @@ using UnityEngine;
 public class MoveCamera : MonoBehaviour
 {
     public Transform player;
-     private bool isLocked = false;
+    private bool isLocked = false;
     private Vector2 smoothedVelocity;
     private Vector2 currentLookingDirection;
     // Update is called once per frame
     void Update()
     {
+       
         transform.position = player.transform.position;
+        
     }
     private void Awake(){
         Cursor.lockState = CursorLockMode.Locked;

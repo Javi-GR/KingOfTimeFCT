@@ -4,19 +4,38 @@ using UnityEngine;
 
 public class KeyLeft : MonoBehaviour
 {
-    [SerializeField]
-    public string triggerColor;
+    
     public LevelManager levelManager;
     public PickUp pickUp;
+    public GameObject keyPosition;
     
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == triggerColor)
+        if(other.gameObject.tag == keyPosition.tag)
         {
-            other.gameObject.transform.position = transform.position + Vector3.up * 2;
+            SoundManager.PlaySound("keyleft");
+            keyPosition.transform.position = transform.position + Vector3.up * 2;
             pickUp.DropObject();
-            Destroy(other.gameObject.GetComponent<Rigidbody>());
+            Destroy(keyPosition.GetComponent<Rigidbody>());
             levelManager.nKeys++;
+            Debug.Log("Number of keys "+levelManager.nKeys);
         }
+    }
+    public void SaveKeyPosition()
+    {
+        SaveSystem.SaveKeyPosition(this);
+    }
+    public void LoadKeyPosition()
+    {
+        Debug.Log("Loaded Key position");
+        KeysData data = SaveSystem.LoadKeyPosition();
+        Vector3 position;
+        position.x = data.keyPosition[0];
+        position.y = data.keyPosition[1];
+        position.z = data.keyPosition[2];
+        keyPosition.transform.position = position;
+        Destroy(keyPosition.GetComponent<Rigidbody>());
+        levelManager.nKeys = data.numberOfKeys;
+
     }
 }

@@ -14,6 +14,7 @@ public class FloatingIsland : MonoBehaviour
     private float lerpTime1 = 6;
     private float currentLerpTime = 0;
     private float currentLerpTime1 = 0;
+    private bool arrived = false;
     public GameObject player;
     void Start()
     {
@@ -46,11 +47,12 @@ public class FloatingIsland : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, point2V, percentage1);
             if(transform.position == point2V)
                 player.transform.parent = null;
+                arrived = true;
         }
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == player){
+        if(other.gameObject == player && !arrived){
             player.transform.parent = transform;
             enteredIsland = true;
             SoundManager.PlaySound("movingisland");

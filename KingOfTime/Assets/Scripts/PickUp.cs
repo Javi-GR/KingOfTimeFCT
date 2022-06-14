@@ -47,6 +47,7 @@ public class PickUp : MonoBehaviour
     {
         if(pickObj.GetComponent<Rigidbody>() && pickObj.tag != "Player" && pickObj.tag != "Enemy")
         {
+            SoundManager.PlaySound("keypickedup");
             Rigidbody objRig = pickObj.GetComponent<Rigidbody>();
             objRig.useGravity = false;
             objRig.drag = 10;

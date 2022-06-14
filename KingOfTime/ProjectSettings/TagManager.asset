@@ -11,6 +11,8 @@ TagManager:
   - Green
   - Red
   - FloatingIsland
+  - EnemyGround
+  - Fire
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class HealthScript : MonoBehaviour
 {
 
-    //https://youtu.be/5nWRrkaFpic?list=LL&t=599
     public float currentHealth = 40.0f;
     [SerializeField]
     private float maxHealth = 40.0f;

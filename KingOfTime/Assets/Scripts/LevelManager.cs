@@ -26,6 +26,10 @@ public class LevelManager : MonoBehaviour
             SoundManager.PlaySound("death");
             LoadSameLevel(dead);
         }
+        if(dead && Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
         if(nKeys == 3 && SceneManager.GetActiveScene().buildIndex == 0)
         {
             if(floatingIsland.transform.position == startPosition)
@@ -43,6 +47,10 @@ public class LevelManager : MonoBehaviour
             floatingIsland.transform.position = Vector3.Lerp(startPosition, point, percentage);
             
         }
+        if(nKeys == 3 && SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            LoadNextLevel(); 
+        }
     }
     
     void Start()
@@ -55,20 +63,14 @@ public class LevelManager : MonoBehaviour
         }
         
     }
-    void FixedUpdate()
-    {
-        if(dead && Input.GetKeyDown(KeyCode.F))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
+   
     public void LoadSameLevel(bool died)
     {
         if(died)
         {
-            //Change Text of fade
+            dead = true;
+            transition.SetTrigger("Start");
             fadeText.text = "Press F to pay respect [f]";
-            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
         }else{
             fadeText.text = "";
             StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
@@ -96,6 +98,14 @@ public class LevelManager : MonoBehaviour
         }
         
         
+    }
+    public void  QuitGame()
+    {
+        Application.Quit();
+    }
+    public void RestartGame()
+    {
+        LoadLevel(0);
     }
     
 }

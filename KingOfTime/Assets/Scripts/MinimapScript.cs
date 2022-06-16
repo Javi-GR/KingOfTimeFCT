@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MinimapScript : MonoBehaviour
 {
+    
     public Transform player;
     void LateUpdate()
     {

@@ -5,13 +5,14 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static AudioClip rewindTime, burn, laserHit, slowdownTime, steam,  
-    jump, shot, death, deathbyrobot, robotDeath, hitmarker, keyLeft,pickedUpKey, floatingIsland, explosion, hurt;
+    jump, shot, death, deathbyrobot, robotDeath, fallingWood, hitmarker, keyLeft,pickedUpKey, floatingIsland, explosion, hurt;
     public static AudioSource audioSrc;
     // Start is called before the first frame update
     void Start()
     {
         rewindTime = Resources.Load<AudioClip>("rewindtime");
         slowdownTime = Resources.Load<AudioClip>("slowdowntime");
+        fallingWood = Resources.Load<AudioClip>("fallingwood");
         jump = Resources.Load<AudioClip>("jump");
         shot = Resources.Load<AudioClip>("shot");
         burn = Resources.Load<AudioClip>("burn");
@@ -83,6 +84,9 @@ public class SoundManager : MonoBehaviour
                 break;
             case "robotdeath":
                 audioSrc.PlayOneShot(robotDeath);
+                break;
+            case "fallingwood":
+                audioSrc.PlayOneShot(fallingWood);
                 break;
         }
             

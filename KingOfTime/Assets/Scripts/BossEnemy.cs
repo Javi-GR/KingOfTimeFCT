@@ -77,9 +77,9 @@ public class BossEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SoundManager.PlaySound("keyleft");
-        Instantiate(redKey, transform.position, Quaternion.identity);
+        redKey.SetActive(true);
         blip.DestroyedEnemy();
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
     
     //Attack function of the shooting enemy

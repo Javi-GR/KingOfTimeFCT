@@ -1,5 +1,4 @@
 using System.Collections;
-using CreatingCharacters.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,11 +41,6 @@ using UnityEngine;
         {
             StoreRecallData();
 
-            //Remove this, just for debugging purposes
-            for(int i = 0; i<recallData.Count -1;i++)
-            {
-                Debug.DrawLine(recallData[i].characterPosition, recallData[i+1].characterPosition);
-            }
 
         }
 

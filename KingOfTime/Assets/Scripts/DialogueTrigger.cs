@@ -11,13 +11,13 @@ public class DialogueTrigger : MonoBehaviour
    {
        tutorial.SetActive(true);
        FindObjectOfType<TutorialDialogue>().StartConversation(dialogue);
-       Destroy(this.GetComponent<BoxCollider>());
    }
    private void OnTriggerEnter(Collider other)
    {
        if(other.gameObject.tag == "Player")
        {
            TriggerDialogue();
+           gameObject.GetComponent<BoxCollider>().enabled = false;
        }
    }
 }

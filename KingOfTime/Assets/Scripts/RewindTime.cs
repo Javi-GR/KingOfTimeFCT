@@ -3,138 +3,142 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-    public class RewindTime : MonoBehaviour
+public class RewindTime : MonoBehaviour
+{
+    //The higher maxRecallData is, the smoother the rewind is (2 is straight line, 100 is a line of 100 points making the rewind smoother)
+    [SerializeField] private int maxRecallData = 10;
+    //This maxRecallData / secondsBetweenData
+    [SerializeField] private float secondsBetweenData = 0.5f;
+     // recallDuration represents the seconds back in time that the character goes
+    [SerializeField] private float recallDuration = 1.25f;
+    [SerializeField]private Clock clock;
+
+    private MoveCamera playerCameraController;  // PlayerCameraController
+    public bool canCollectRecallData = true;
+    private float currentDataTimer = 0f;
+    TimeManager tm;
+    PlayerMovement pm;
+
+    [System.Serializable]
+    private class RecallData
     {
-        //The higher maxRecallData is, the smoother the rewind is (2 is straight line, 100 is a line of 100 points making the rewind smoother)
-        [SerializeField] private int maxRecallData = 10;
-        //This maxRecallData / secondsBetweenData
-        [SerializeField] private float secondsBetweenData = 0.5f;
-        // recallDuration represents the seconds back in time that the character goes
-        [SerializeField] private float recallDuration = 1.25f;
-        [SerializeField]private Clock clock;
+        public Vector3 characterPosition;
+        public Quaternion characterRotation;
+        public Quaternion cameraRotation;
+    }
 
-        private MoveCamera playerCameraController;  // PlayerCameraController
-        public bool canCollectRecallData = true;
-        private float currentDataTimer = 0f;
-        TimeManager tm;
-        PlayerMovement pm;
+    [SerializeField] private List<RecallData> recallData = new List<RecallData>();
 
-        [System.Serializable]
-        private class RecallData
-        {
-            public Vector3 characterPosition;
-            public Quaternion characterRotation;
-            public Quaternion cameraRotation;
-        }
-
-        [SerializeField] private List<RecallData> recallData = new List<RecallData>();
-
-        private void Start()
-        {
-            tm = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
-            pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-            playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); // playerCameraController = GetComponentInChildren<PlayerCameraController>(); 
-        }
+    private void Start()
+    {
+        tm = GameObject.FindGameObjectWithTag("TimeManager").GetComponent<TimeManager>();
+        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerCameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveCamera>(); 
+    }
 
 
-        private void Update()
-        {
-            StoreRecallData();
+    private void Update()
+    {
+        StoreRecallData();
 
 
-        }
+    }
 
        
-        private void StoreRecallData()
+    private void StoreRecallData()
+    {
+        currentDataTimer +=Time.deltaTime;
+
+        if(canCollectRecallData)
         {
-            currentDataTimer +=Time.deltaTime;
-
-            if(canCollectRecallData)
+            if(currentDataTimer >= secondsBetweenData)
             {
-                if(currentDataTimer >= secondsBetweenData)
+                if(recallData.Count >= maxRecallData)
                 {
-                    if(recallData.Count >= maxRecallData)
-                    {
-                        recallData.RemoveAt(0);
-                    }
-                    recallData.Add(GetRecallData());
-
-                    currentDataTimer = 0f;
+                    recallData.RemoveAt(0);
                 }
+                recallData.Add(GetRecallData());
+
+                currentDataTimer = 0f;
             }
         }
+    }
 
-        private RecallData GetRecallData()
+    private RecallData GetRecallData()
+    {
+        return new RecallData()
         {
-            return new RecallData()
-            {
-                characterPosition = transform.position,
-                characterRotation = transform.rotation, 
-                cameraRotation = playerCameraController.transform.rotation
-            };
-        }
-    
-        public IEnumerator Recall()
+            characterPosition = transform.position,
+            characterRotation = transform.rotation, 
+            cameraRotation = playerCameraController.transform.rotation
+        };
+    }
+
+    public void CallRecall()
+    {
+        StartCoroutine(Recall());
+    }
+    private IEnumerator Recall()
+    {
+        playerCameraController.Lock(true);
+
+        canCollectRecallData = false;
+
+        float secondsForEachData = recallDuration / recallData.Count;
+
+        Vector3 currentDataPlayerStartPos = transform.position;
+        Quaternion  currentDataPlayerStartRot = transform.rotation;
+        Quaternion currentDataCamStartRot = playerCameraController.transform.rotation;
+        Vector3 currentDataCamStartPos = playerCameraController.transform.position;
+
+
+        while(recallData.Count > 0)
         {
-            playerCameraController.Lock(true);
+            clock.reverseTime = true;
+            float t = 0f;
 
-            canCollectRecallData = false;
+            while( t < secondsForEachData ){
 
-            float secondsForEachData = recallDuration / recallData.Count;
+                transform.position = Vector3.Lerp(currentDataPlayerStartPos,
+                recallData[recallData.Count -1].characterPosition,
+                t/secondsForEachData);
 
-            Vector3 currentDataPlayerStartPos = transform.position;
-            Quaternion  currentDataPlayerStartRot = transform.rotation;
-            Quaternion currentDataCamStartRot = playerCameraController.transform.rotation;
-            Vector3 currentDataCamStartPos = playerCameraController.transform.position;
+                transform.rotation = Quaternion.Lerp(currentDataPlayerStartRot,
+                recallData[recallData.Count -1].characterRotation,
+                t/secondsForEachData);
 
-
-            while(recallData.Count > 0)
-            {
-                clock.reverseTime = true;
-                float t = 0f;
-
-                while( t < secondsForEachData ){
-
-                   transform.position = Vector3.Lerp(currentDataPlayerStartPos,
-                    recallData[recallData.Count -1].characterPosition,
-                     t/secondsForEachData);
-
-                     transform.rotation = Quaternion.Lerp(currentDataPlayerStartRot,
-                      recallData[recallData.Count -1].characterRotation,
-                       t/secondsForEachData);
-
-                       playerCameraController.transform.rotation = Quaternion.Lerp(currentDataCamStartRot,
+                playerCameraController.transform.rotation = Quaternion.Lerp(currentDataCamStartRot,
                       recallData[recallData.Count -1].cameraRotation,
                        t/secondsForEachData);
                   
-                    t += Time.deltaTime;
+                t += Time.deltaTime;
 
-                    yield return null;
-                }
+                yield return null;
+            }
 
-                currentDataPlayerStartPos = recallData[recallData.Count -1].characterPosition;
-                currentDataPlayerStartRot = recallData[recallData.Count -1].characterRotation;
-                currentDataCamStartRot = recallData[recallData.Count -1].cameraRotation;
-                currentDataCamStartPos = recallData[recallData.Count -1].characterPosition;
+            currentDataPlayerStartPos = recallData[recallData.Count -1].characterPosition;
+            currentDataPlayerStartRot = recallData[recallData.Count -1].characterRotation;
+            currentDataCamStartRot = recallData[recallData.Count -1].cameraRotation;
+            currentDataCamStartPos = recallData[recallData.Count -1].characterPosition;
 
                 
 
-                recallData.RemoveAt(recallData.Count -1);
-            }
-            clock.reverseTime = false;
-            
-            playerCameraController.Lock(false);
-
-            canCollectRecallData = true;
-            if(pm.grounded)
-            {
-                yield break;
-            }
-            else{
-                tm.TimeImpulse();
-            }
-            
+            recallData.RemoveAt(recallData.Count -1);
         }
-    } 
+        clock.reverseTime = false;
+            
+        playerCameraController.Lock(false);
+
+        canCollectRecallData = true;
+        if(pm.grounded)
+        {
+            yield break;
+        }
+        else{
+            tm.TimeImpulse();
+        }
+            
+    }
+} 
 
 

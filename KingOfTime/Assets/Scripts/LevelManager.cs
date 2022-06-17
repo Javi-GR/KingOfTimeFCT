@@ -99,13 +99,13 @@ public class LevelManager : MonoBehaviour
         
         
     }
-    public void  QuitGame()
+    public static void  QuitGame()
     {
         Application.Quit();
     }
-    public void RestartGame()
+    public static void RestartGame()
     {
-        LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
     
 }

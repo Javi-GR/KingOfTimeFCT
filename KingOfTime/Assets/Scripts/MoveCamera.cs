@@ -6,7 +6,6 @@ public class MoveCamera : MonoBehaviour
 {
     public Transform player;
     private bool isLocked = false;
-    private Vector2 smoothedVelocity;
     private Vector2 currentLookingDirection;
     // Update is called once per frame
     void Update()
@@ -27,7 +26,6 @@ public class MoveCamera : MonoBehaviour
 
             if(!shouldLock)
             {
-                smoothedVelocity = new Vector2();
                 currentLookingDirection = new Vector2(player.eulerAngles.y, -transform.eulerAngles.x);
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60f, 10f * Time.deltaTime);
             }

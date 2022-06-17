@@ -42,11 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     public bool grounded;
     public bool crouching;
-    private bool surfing;
+    //private bool surfing;
     private bool cancellingGrounded;
     private bool cancellingSurf;
     private bool cancellingWall;
-    private bool onWall;
+    //private bool onWall;
     private bool cancelling;
     public PauseMenuScript pauseMenu;
 
@@ -414,13 +414,13 @@ public class PlayerMovement : MonoBehaviour
             if (IsWall(normal) && (layer == (int)whatIsGround || (int)whatIsGround == -1 || layer == LayerMask.NameToLayer("Ground") || layer == LayerMask.NameToLayer("ground"))) 
             {
                 StartWallRun(normal);
-                onWall = true;
+                //onWall = true;
                 cancellingWall = false;
                 CancelInvoke("StopWall");
             }
             if (IsSurf(normal))
             {
-                surfing = true;
+                //surfing = true;
                 cancellingSurf = false;
                 CancelInvoke("StopSurf");
             }
@@ -451,13 +451,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void StopWall()
     {
-        onWall = false;
+        //onWall = false;
         isWallRunning = false;
     }
 
     private void StopSurf()
     {
-        surfing = false;
+        //surfing = false;
     }
 
     //wallrunning functions

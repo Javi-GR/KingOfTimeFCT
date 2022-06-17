@@ -7,11 +7,9 @@ ScriptsOnlyBuild:
     - BossEnemyHEalth
     - BridgeFall
     - BulletDamage
-    - Character_Animations
     - Clock
     - DialogueTrigger
     - Enemy
-    - FaceAnimations
     - FlameTrigger
     - FloatingIsland
     - FloatingIsland2
@@ -25,7 +23,6 @@ ScriptsOnlyBuild:
     - MoveCamera
     - PauseMenuScript
     - PickUp
-    - PlayFaceAnimations
     - PlayerMovement
     - RewindTime
     - SoundManager
@@ -35,11 +32,6 @@ ScriptsOnlyBuild:
     - SplineMesh.SplineExtrusion
     - TimeManager
     - TutorialDialogue
-    Unity.Animation.Rigging.dll:
-    - UnityEngine.Animations.Rigging.BoneRenderer
-    - UnityEngine.Animations.Rigging.MultiAimConstraint
-    - UnityEngine.Animations.Rigging.Rig
-    - UnityEngine.Animations.Rigging.RigBuilder
     Unity.Postprocessing.Runtime.dll:
     - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
     - UnityEngine.Rendering.PostProcessing.AutoExposure
@@ -112,11 +104,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2616}
     - Class: 114
-      Script: {instanceID: 2638}
+      Script: {instanceID: 2636}
     - Class: 114
-      Script: {instanceID: 2782}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2994}
+      Script: {instanceID: 2992}
     - Class: 114
       Script: {instanceID: 3236}
     - Class: 114
@@ -178,8 +170,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
-    - Class: 90
-      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -193,8 +183,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1562}
     - Class: 114
-      Script: {instanceID: 1598}
-    - Class: 114
       Script: {instanceID: 1658}
     - Class: 114
       Script: {instanceID: 1940}
@@ -205,31 +193,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2404}
     - Class: 114
-      Script: {instanceID: 2416}
-    - Class: 114
       Script: {instanceID: 2474}
     - Class: 114
       Script: {instanceID: 2498}
     - Class: 114
       Script: {instanceID: 2616}
     - Class: 114
-      Script: {instanceID: 2638}
+      Script: {instanceID: 2636}
     - Class: 114
-      Script: {instanceID: 2654}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2782}
+      Script: {instanceID: 2800}
     - Class: 114
-      Script: {instanceID: 2802}
+      Script: {instanceID: 2992}
     - Class: 114
-      Script: {instanceID: 2994}
+      Script: {instanceID: 3092}
     - Class: 114
-      Script: {instanceID: 3094}
+      Script: {instanceID: 3152}
     - Class: 114
       Script: {instanceID: 3172}
     - Class: 114
       Script: {instanceID: 3236}
-    - Class: 114
-      Script: {instanceID: 3316}
     - Class: 114
       Script: {instanceID: 3354}
     - Class: 114
@@ -237,47 +221,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3540}
     - Class: 114
-      Script: {instanceID: 3798}
+      Script: {instanceID: 3796}
     - Class: 114
-      Script: {instanceID: 3956}
+      Script: {instanceID: 3954}
     - Class: 114
-      Script: {instanceID: 4050}
+      Script: {instanceID: 4048}
     - Class: 114
-      Script: {instanceID: 4148}
+      Script: {instanceID: 4348}
     - Class: 114
-      Script: {instanceID: 4356}
+      Script: {instanceID: 4476}
     - Class: 114
-      Script: {instanceID: 4484}
+      Script: {instanceID: 4498}
     - Class: 114
-      Script: {instanceID: 4506}
+      Script: {instanceID: 4844}
     - Class: 114
-      Script: {instanceID: 4852}
+      Script: {instanceID: 4880}
     - Class: 114
-      Script: {instanceID: 4888}
+      Script: {instanceID: 4916}
     - Class: 114
-      Script: {instanceID: 4924}
+      Script: {instanceID: 4986}
     - Class: 114
-      Script: {instanceID: 4994}
+      Script: {instanceID: 5234}
     - Class: 114
-      Script: {instanceID: 5242}
+      Script: {instanceID: 5338}
     - Class: 114
-      Script: {instanceID: 5346}
+      Script: {instanceID: 5352}
     - Class: 114
-      Script: {instanceID: 5360}
+      Script: {instanceID: 5500}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5524}
     - Class: 114
-      Script: {instanceID: 5532}
-    - Class: 114
-      Script: {instanceID: 5576}
-    - Class: 114
-      Script: {instanceID: 18566}
-    - Class: 114
-      Script: {instanceID: 18670}
-    - Class: 114
-      Script: {instanceID: 18672}
-    - Class: 114
-      Script: {instanceID: 18674}
+      Script: {instanceID: 5566}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -289,10 +263,6 @@ ScriptsOnlyBuild:
     - Class: 135
       Script: {instanceID: 0}
     - Class: 136
-      Script: {instanceID: 0}
-    - Class: 137
-      Script: {instanceID: 0}
-    - Class: 143
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -398,17 +368,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2616}
     - Class: 114
-      Script: {instanceID: 2638}
+      Script: {instanceID: 2636}
     - Class: 114
-      Script: {instanceID: 2782}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2802}
+      Script: {instanceID: 2800}
     - Class: 114
-      Script: {instanceID: 2994}
+      Script: {instanceID: 2992}
     - Class: 114
-      Script: {instanceID: 3094}
+      Script: {instanceID: 3092}
     - Class: 114
-      Script: {instanceID: 3102}
+      Script: {instanceID: 3100}
+    - Class: 114
+      Script: {instanceID: 3152}
     - Class: 114
       Script: {instanceID: 3172}
     - Class: 114
@@ -422,47 +394,45 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3550}
     - Class: 114
-      Script: {instanceID: 3794}
+      Script: {instanceID: 3792}
     - Class: 114
-      Script: {instanceID: 3798}
+      Script: {instanceID: 3796}
     - Class: 114
-      Script: {instanceID: 3956}
+      Script: {instanceID: 3954}
     - Class: 114
-      Script: {instanceID: 4050}
+      Script: {instanceID: 4048}
     - Class: 114
-      Script: {instanceID: 4148}
+      Script: {instanceID: 4348}
     - Class: 114
-      Script: {instanceID: 4356}
+      Script: {instanceID: 4418}
     - Class: 114
-      Script: {instanceID: 4426}
+      Script: {instanceID: 4476}
     - Class: 114
-      Script: {instanceID: 4484}
+      Script: {instanceID: 4844}
     - Class: 114
-      Script: {instanceID: 4852}
+      Script: {instanceID: 4880}
     - Class: 114
-      Script: {instanceID: 4888}
+      Script: {instanceID: 4916}
     - Class: 114
-      Script: {instanceID: 4924}
+      Script: {instanceID: 4986}
     - Class: 114
-      Script: {instanceID: 4994}
+      Script: {instanceID: 5234}
     - Class: 114
-      Script: {instanceID: 5242}
+      Script: {instanceID: 5306}
     - Class: 114
-      Script: {instanceID: 5314}
+      Script: {instanceID: 5338}
     - Class: 114
-      Script: {instanceID: 5346}
+      Script: {instanceID: 5352}
     - Class: 114
-      Script: {instanceID: 5360}
+      Script: {instanceID: 5490}
     - Class: 114
-      Script: {instanceID: 5498}
+      Script: {instanceID: 5500}
     - Class: 114
-      Script: {instanceID: 5508}
+      Script: {instanceID: 5524}
     - Class: 114
-      Script: {instanceID: 5532}
+      Script: {instanceID: 5554}
     - Class: 114
-      Script: {instanceID: 5564}
-    - Class: 114
-      Script: {instanceID: 5576}
+      Script: {instanceID: 5566}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -832,6 +802,12 @@ ScriptsOnlyBuild:
     className: BossEnemyHEalth
   - hash:
       serializedVersion: 2
+      Hash: 86931ae29be84663e68ea81f7692ef8e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Clock
+  - hash:
+      serializedVersion: 2
       Hash: 5a9574d8de340d04e90a6dfabf24a680
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -938,12 +914,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Outline
-  - hash:
-      serializedVersion: 2
-      Hash: d6c81b9d3360b0b2039a6d09e6be7022
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayFaceAnimations
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -1054,12 +1024,6 @@ ScriptsOnlyBuild:
     className: Enemy
   - hash:
       serializedVersion: 2
-      Hash: 783f2d8de670cae64d20bf874d998c49
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: FaceAnimations
-  - hash:
-      serializedVersion: 2
       Hash: 4d0bec33788c91c1e3d3c90c8f49d5db
     assemblyName: Unity.Animation.Rigging.dll
     namespaceName: UnityEngine.Animations.Rigging
@@ -1084,12 +1048,6 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
-      Hash: 86931ae29be84663e68ea81f7692ef8e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Clock
-  - hash:
-      serializedVersion: 2
       Hash: a81d4c2c1cf3ad164d277d927a193679
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -1112,12 +1070,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Character_Animations
   - hash:
       serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
@@ -1288,7 +1240,7 @@ ScriptsOnlyBuild:
     className: SplineMeshTiling
   - hash:
       serializedVersion: 2
-      Hash: d85f7e5522babceaf1b547e2bcb5ed4a
+      Hash: 0e0d44ae3d2ec6f7ab16c64ebcbf5223
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SpellCooldown
@@ -1378,12 +1330,6 @@ ScriptsOnlyBuild:
     className: SplineSmoother
   - hash:
       serializedVersion: 2
-      Hash: 92245a35d32be439181dd59f5b980cdb
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ChangeFaces
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: SplineMesh
@@ -1399,4 +1345,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/SampleScene.unity
   - Assets/Scenes/SecondLevel.unity
   - Assets/Scenes/EndScene.unity
-  playerPath: C:/Users/javi1/Desktop/FirstBuild/KingOfTime.exe
+  playerPath: C:/Users/javi1/Desktop/build/KingOfTime.exe

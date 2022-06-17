@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpellCooldown : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class SpellCooldown : MonoBehaviour
     private float cooldownTimeR = 10.0f;
     private float cooldownTimerR = 0.0f;
     public TimeManager timeManager;
-    public RewindTime rewindTime;
+    RewindTime rewindTime;
 
     // Start is called before the first frame update
     void Start()
@@ -31,19 +32,23 @@ public class SpellCooldown : MonoBehaviour
         imageCooldownS.fillAmount = 0.0f;
         textCooldownR.gameObject.SetActive(false);
         imageCooldownR.fillAmount = 0.0f;
+        rewindTime = GameObject.FindGameObjectWithTag("Player").GetComponent<RewindTime>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q) && rewindTime.canCollectRecallData == true)
+        if(Input.GetKeyDown(KeyCode.Q) && rewindTime == null)
+        {
+            UseSpellStopTime();
+        }
+        if(Input.GetKeyDown(KeyCode.Q) && rewindTime.canCollectRecallData == true && rewindTime != null)
         {
             
             UseSpellStopTime();
         }
-        if(Input.GetKeyDown(KeyCode.E) && timeManager.slowed == false)
+        if(Input.GetKeyDown(KeyCode.E) && timeManager.slowed == false && SceneManager.GetActiveScene().buildIndex == 1)
         {
-            
             UseSpellRewind();
         }
         if(isCooldownStopTime)
@@ -101,7 +106,7 @@ public class SpellCooldown : MonoBehaviour
             isCooldownRewind = true;
             textCooldownR.gameObject.SetActive(true);
             cooldownTimerR = cooldownTimeR;
-            StartCoroutine(rewindTime.Recall());
+            rewindTime.CallRecall();
         }
     }
     public void UseSpellStopTime()
